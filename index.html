@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiStore — Gift Cards & Digital Rewards</title>
+<meta name="description" content="DigiStore — discover digital gift cards, vouchers, offers and rewards.">
+<style>
+:root{--blue:#1557d6;--dark:#101828;--muted:#667085;--line:#eaecf0;--bg:#f7f9fc;--orange:#ff7a00;--green:#12b76a;--radius:14px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--dark);background:#fff}a{text-decoration:none;color:inherit}button,input{font:inherit}
+.topbar{background:#0d47b5;color:#fff;font-size:13px;padding:8px 5%;display:flex;justify-content:center;gap:28px}
+.nav{height:74px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 5%;gap:26px;background:#fff;position:sticky;top:0;z-index:30}
+.logo{font-size:26px;font-weight:900;letter-spacing:-1.3px;color:#1254cf}.logo span{color:#ff7a00}
+.search{flex:1;max-width:650px;position:relative}.search input{width:100%;height:44px;border:1px solid #d0d5dd;border-radius:9px;padding:0 44px 0 16px;outline:none}.search button{position:absolute;right:4px;top:4px;height:36px;width:38px;border:0;background:#f2f4f7;border-radius:7px;cursor:pointer}
+.navlinks{display:flex;align-items:center;gap:18px;font-size:14px;white-space:nowrap}.navlinks a:hover{color:var(--blue)}.loot{background:#ff7a00;color:#fff;padding:10px 16px;border-radius:8px;font-weight:800;box-shadow:0 4px 12px #ff7a0030}
+.hero{padding:18px 5% 0;background:var(--bg)}.slider{position:relative;overflow:hidden;border-radius:18px;height:365px;background:#173f9e}.slides{height:100%;display:flex;transition:transform .55s ease}.slide{min-width:100%;height:100%;position:relative;overflow:hidden;padding:58px 7%;display:flex;align-items:center;color:#fff}.slide:after{content:"";position:absolute;right:-80px;top:-100px;width:440px;height:440px;border-radius:50%;background:#ffffff18}.slide:nth-child(1){background:linear-gradient(110deg,#0d47b5,#2c78ef)}.slide:nth-child(2){background:linear-gradient(110deg,#7a22cf,#e44e98)}.slide:nth-child(3){background:linear-gradient(110deg,#087f5b,#17b978)}.slidecopy{max-width:590px;position:relative;z-index:2}.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:12px;font-weight:800;opacity:.85}.slide h1{font-size:44px;line-height:1.06;margin:12px 0}.slide p{font-size:17px;line-height:1.55;max-width:530px;color:#eef4ff}.cta{display:inline-flex;margin-top:14px;padding:12px 21px;background:#fff;color:#123f9c;border-radius:9px;font-weight:800}.dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:5}.dot{width:8px;height:8px;border-radius:50%;border:0;background:#ffffff70;cursor:pointer}.dot.active{width:24px;border-radius:20px;background:#fff}.arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:42px;height:42px;border:1px solid #ffffff50;background:#ffffff20;color:#fff;border-radius:50%;cursor:pointer;font-size:22px}.prev{left:18px}.next{right:18px}
+.quick{padding:18px 5%;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;background:#fff}.quickcard{border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:12px;align-items:center;background:#fff}.icon{width:42px;height:42px;border-radius:10px;background:#eef4ff;display:grid;place-items:center;color:var(--blue);font-weight:900}.quickcard b{font-size:14px}.quickcard span{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+.section{padding:30px 5%}.sectionhead{display:flex;justify-content:space-between;align-items:end;margin-bottom:18px}.section h2{font-size:24px;margin:0}.sectionhead p{margin:6px 0 0;color:var(--muted);font-size:14px}.viewall{color:var(--blue);font-size:14px;font-weight:800}
+.categories{display:grid;grid-template-columns:repeat(8,1fr);gap:14px}.cat{border:1px solid var(--line);border-radius:13px;padding:18px 10px;text-align:center;background:#fff;transition:.2s}.cat:hover{transform:translateY(-3px);box-shadow:0 10px 25px #10182810}.cat .emoji{font-size:27px;margin-bottom:8px}.cat span{font-size:12px;font-weight:700}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.filter{border:1px solid #d0d5dd;background:#fff;padding:8px 13px;border-radius:20px;font-size:12px;cursor:pointer}.filter.active{background:#eaf1ff;color:var(--blue);border-color:#b7ccff}
+.brands{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.brand{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;transition:.2s}.brand:hover{transform:translateY(-3px);box-shadow:0 10px 25px #10182812}.brandimg{height:120px;display:grid;place-items:center;font-size:24px;font-weight:900;color:#fff}.brandbody{padding:13px}.brandbody h3{font-size:15px;margin:0 0 5px}.brandbody p{font-size:12px;color:var(--muted);margin:0}.off{color:#12b76a;font-weight:800}
+.deal{margin:0 5% 35px;border-radius:18px;padding:30px 5%;background:linear-gradient(100deg,#101828,#27364f);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:20px}.deal h2{margin:0 0 8px;font-size:27px}.deal p{margin:0;color:#d0d5dd}.deal .cta{background:#ff7a00;color:#fff}
+.info{background:var(--bg);padding:35px 5%}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px}.step{background:#fff;border:1px solid var(--line);padding:20px;border-radius:13px}.num{width:32px;height:32px;border-radius:50%;background:#eaf1ff;color:var(--blue);display:grid;place-items:center;font-weight:900}.step h3{font-size:15px;margin:12px 0 7px}.step p{font-size:13px;color:var(--muted);line-height:1.5;margin:0}
+.footer{background:#101828;color:#d0d5dd;padding:42px 5% 22px}.footergrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:35px}.footer h3{color:#fff;margin:0 0 13px;font-size:14px}.footer p,.footer a{font-size:13px;color:#98a2b3;line-height:1.8}.footer a{display:block}.copy{border-top:1px solid #344054;margin-top:25px;padding-top:18px;font-size:12px;color:#667085}
+.chat{position:fixed;right:22px;bottom:22px;width:54px;height:54px;border-radius:50%;background:#1557d6;color:#fff;display:grid;place-items:center;font-size:23px;box-shadow:0 8px 25px #1557d655;z-index:50}
+@media(max-width:900px){.nav{gap:12px}.navlinks a:not(.loot){display:none}.quick,.steps{grid-template-columns:repeat(2,1fr)}.categories{grid-template-columns:repeat(4,1fr)}.brands{grid-template-columns:repeat(3,1fr)}.slide h1{font-size:34px}.footergrid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.topbar{display:none}.nav{height:auto;padding:14px 4%;flex-wrap:wrap}.search{order:3;flex-basis:100%;max-width:none}.hero{padding:10px 3% 0}.slider{height:390px}.slide{padding:38px 9%}.slide h1{font-size:30px}.quick,.steps{grid-template-columns:1fr}.categories{grid-template-columns:repeat(2,1fr)}.brands{grid-template-columns:repeat(2,1fr)}.section{padding:25px 4%}.deal{margin:0 4% 25px;padding:25px;display:block}.deal .cta{margin-top:15px}.footer{padding:32px 4%}.footergrid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<!-- LOGIN OVERLAY -->
+<div class="login-overlay" id="loginOverlay">
+
+  <div class="login-popup">
+
+    <!-- CLOSE -->
+    <button class="login-close" onclick="closeLogin()">×</button>
+
+    <div class="login-content">
+
+      <h1>Welcome to DigiStore</h1>
+
+      <p class="login-subtitle">
+        Log in to discover more great deals
+      </p>
+
+      <!-- EMAIL -->
+      <div class="input-box">
+        <input
+          type="email"
+          id="loginEmail"
+          placeholder="Email"
+          autocomplete="email"
+        >
+      </div>
+
+      <!-- PASSWORD -->
+      <div class="input-box password-box">
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="Password"
+          autocomplete="current-password"
+        >
+
+        <button
+          type="button"
+          class="eye-btn"
+          onclick="togglePassword()"
+          aria-label="Show password"
+        >
+          ◉
+        </button>
+      </div>
+
+      <!-- FORGOT -->
+      <a href="#" class="forgot">
+        Forgot password?
+      </a>
+
+      <!-- LOGIN -->
+      <button class="login-btn" onclick="loginUser()">
+        Log in
+      </button>
+
+      <!-- OR -->
+      <div class="or">
+        <span></span>
+        <b>OR</b>
+        <span></span>
+      </div>
+
+      <!-- GOOGLE -->
+      <button class="google-btn" onclick="googleLogin()">
+        <span class="google-icon">G</span>
+        <span>Continue with Google</span>
+      </button>
+
+      <!-- SIGNUP -->
+      <div class="signup">
+        New to DigiStore?
+        <a href="#">Join for free</a>
+      </div>
+
+      <!-- TERMS -->
+      <div class="terms">
+        <a href="#">Terms of Service</a>
+        <span>·</span>
+        <a href="#">Privacy Policy</a>
+        <span>·</span>
+        <a href="#">Notice at Collection</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<style>
+
+/* ==============================
+   GREY BACKGROUND
+================================ */
+
+.login-overlay{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(0,0,0,.58);
+
+  padding:20px;
+
+  animation:overlayIn .2s ease;
+}
+
+
+/* ==============================
+   POPUP
+================================ */
+
+.login-popup{
+  position:relative;
+
+  width:100%;
+  max-width:430px;
+
+  background:#fff;
+
+  border-radius:24px;
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.25);
+
+  overflow:hidden;
+
+  animation:popupIn .25s ease;
+}
+
+
+/* ==============================
+   CONTENT
+================================ */
+
+.login-content{
+  padding:32px 32px 27px;
+}
+
+.login-content h1{
+  margin:0;
+
+  font-size:29px;
+  line-height:1.15;
+
+  letter-spacing:-1px;
+
+  color:#111;
+}
+
+.login-subtitle{
+  margin:6px 0 25px;
+
+  color:#555;
+
+  font-size:16px;
+
+  line-height:1.45;
+}
+
+
+/* ==============================
+   CLOSE BUTTON
+================================ */
+
+.login-close{
+  position:absolute;
+
+  top:14px;
+  right:15px;
+
+  width:35px;
+  height:35px;
+
+  border:0;
+  border-radius:50%;
+
+  background:#f3f4f6;
+
+  color:#444;
+
+  font-size:25px;
+  line-height:30px;
+
+  cursor:pointer;
+
+  z-index:2;
+
+  transition:.2s;
+}
+
+.login-close:hover{
+  background:#e5e7eb;
+}
+
+
+/* ==============================
+   INPUTS
+================================ */
+
+.input-box{
+  position:relative;
+
+  width:100%;
+
+  margin-bottom:9px;
+}
+
+.input-box input{
+  width:100%;
+  height:63px;
+
+  padding:0 16px;
+
+  border:1px solid #999;
+
+  border-radius:14px;
+
+  outline:none;
+
+  font-size:16px;
+
+  color:#111;
+
+  background:#fff;
+
+  transition:.2s;
+
+  box-sizing:border-box;
+}
+
+.input-box input::placeholder{
+  color:#666;
+}
+
+.input-box input:focus{
+  border-color:#1557d6;
+
+  box-shadow:
+    0 0 0 3px rgba(21,87,214,.10);
+}
+
+
+/* ==============================
+   PASSWORD
+================================ */
+
+.password-box input{
+  padding-right:52px;
+}
+
+.eye-btn{
+  position:absolute;
+
+  right:14px;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  border:0;
+  background:none;
+
+  font-size:19px;
+
+  color:#111;
+
+  cursor:pointer;
+
+  width:32px;
+  height:32px;
+}
+
+
+/* ==============================
+   FORGOT PASSWORD
+================================ */
+
+.forgot{
+  display:block;
+
+  margin-top:7px;
+
+  color:#1557d6;
+
+  font-size:14px;
+
+  font-weight:700;
+
+  text-decoration:none;
+}
+
+.forgot:hover{
+  text-decoration:underline;
+}
+
+
+/* ==============================
+   LOGIN BUTTON
+================================ */
+
+.login-btn{
+  width:100%;
+
+  height:48px;
+
+  margin-top:19px;
+
+  border:0;
+
+  border-radius:13px;
+
+  background:#1557d6;
+
+  color:#fff;
+
+  font-size:15px;
+
+  font-weight:800;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.login-btn:hover{
+  background:#1048b5;
+
+  transform:translateY(-1px);
+}
+
+
+/* ==============================
+   OR
+================================ */
+
+.or{
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  margin:14px 0;
+
+  color:#555;
+
+  font-size:12px;
+
+  text-align:center;
+}
+
+.or span{
+  height:1px;
+
+  background:#e5e7eb;
+
+  flex:1;
+}
+
+.or b{
+  font-weight:500;
+}
+
+
+/* ==============================
+   GOOGLE
+================================ */
+
+.google-btn{
+  width:100%;
+
+  height:49px;
+
+  border:1px solid #999;
+
+  border-radius:13px;
+
+  background:#fff;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:48px;
+
+  color:#111;
+
+  font-size:15px;
+
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.google-btn:hover{
+  background:#f8f8f8;
+}
+
+.google-icon{
+  position:absolute;
+
+  margin-right:255px;
+
+  font-size:22px;
+
+  font-weight:900;
+
+  font-family:Arial;
+
+  background:
+    linear-gradient(
+      90deg,
+      #4285f4 25%,
+      #34a853 25%,
+      #34a853 50%,
+      #fbbc05 50%,
+      #fbbc05 75%,
+      #ea4335 75%
+    );
+
+  -webkit-background-clip:text;
+  background-clip:text;
+
+  color:transparent;
+}
+
+
+/* ==============================
+   SIGNUP
+================================ */
+
+.signup{
+  margin-top:25px;
+
+  color:#333;
+
+  font-size:15px;
+}
+
+.signup a{
+  color:#111;
+
+  text-decoration:underline;
+
+  font-weight:600;
+}
+
+
+/* ==============================
+   TERMS
+================================ */
+
+.terms{
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:4px;
+
+  margin-top:20px;
+
+  color:#666;
+
+  font-size:11px;
+
+  line-height:1.5;
+}
+
+.terms a{
+  color:#666;
+
+  text-decoration:underline;
+}
+
+
+/* ==============================
+   ANIMATIONS
+================================ */
+
+@keyframes overlayIn{
+
+  from{
+    opacity:0;
+  }
+
+  to{
+    opacity:1;
+  }
+
+}
+
+@keyframes popupIn{
+
+  from{
+    opacity:0;
+    transform:translateY(15px) scale(.97);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+
+}
+
+
+/* ==============================
+   MOBILE
+================================ */
+
+@media(max-width:500px){
+
+  .login-overlay{
+    padding:12px;
+  }
+
+  .login-popup{
+    max-width:100%;
+
+    border-radius:20px;
+  }
+
+  .login-content{
+    padding:30px 20px 23px;
+  }
+
+  .login-content h1{
+    font-size:26px;
+  }
+
+  .login-subtitle{
+    font-size:14px;
+  }
+
+  .google-btn{
+    gap:35px;
+  }
+
+  .google-icon{
+    margin-right:230px;
+  }
+
+}
+
+</style>
+
+
+<script>
+
+/* ==============================
+   CLOSE LOGIN
+================================ */
+
+function closeLogin(){
+
+  document
+    .getElementById("loginOverlay")
+    .style.display = "none";
+
+}
+
+
+/* ==============================
+   PASSWORD VISIBILITY
+================================ */
+
+function togglePassword(){
+
+  const password =
+    document.getElementById("loginPassword");
+
+  if(password.type === "password"){
+
+    password.type = "text";
+
+  }else{
+
+    password.type = "password";
+
+  }
+
+}
+
+
+/* ==============================
+   LOGIN
+================================ */
+
+function loginUser(){
+
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value.trim();
+
+  if(!email){
+
+    alert("Please enter your email.");
+
+    return;
+
+  }
+
+  if(!password){
+
+    alert("Please enter your password.");
+
+    return;
+
+  }
+
+  alert("Login functionality can be connected to your backend here.");
+
+}
+
+
+/* ==============================
+   GOOGLE LOGIN
+================================ */
+
+function googleLogin(){
+
+  alert("Google login can be connected here.");
+
+}
+
+
+/* ==============================
+   ESC TO CLOSE
+================================ */
+
+document.addEventListener("keydown",function(e){
+
+  if(e.key === "Escape"){
+
+    closeLogin();
+
+  }
+
+});
+
+
+/* ==============================
+   CLICK OUTSIDE
+================================ */
+
+document
+  .getElementById("loginOverlay")
+  .addEventListener("click",function(e){
+
+    if(e.target === this){
+
+      closeLogin();
+
+    }
+
+  });
+
+</script>
+<body>
+<div class="topbar"><span>Instant digital delivery</span><span>Exclusive discounts</span><span>Secure payments</span><span>500+ brands coming soon</span></div>
+
+<nav class="nav">
+  <a class="logo" href="/">Digi<span>Store</span></a>
+  <div class="search"><input id="search" placeholder="Search for brands, gift cards & vouchers"><button onclick="doSearch()">⌕</button></div>
+  <div class="navlinks">
+    <a href="#categories">Categories</a>
+    <a href="#brands">Offers</a>
+    <a href="loot.html" target="_blank">Loot</a>
+    <a href="#">♡</a>
+    <a href="#">🛒</a>
+    <a href="#" onclick="openLogin(event)">Login</a>  </div>
+</nav>
+
+<main>
+<section class="hero">
+  <div class="slider" id="slider">
+    <div class="slides" id="slides">
+      <article class="slide"><div class="slidecopy"><div class="eyebrow">DigiStore Rewards</div><h1>More value from every rupee.</h1><p>Discover digital gift cards and vouchers with exclusive savings, delivered instantly.</p><a class="cta" href="#brands">Explore offers →</a></div></article>
+      <article class="slide"><div class="slidecopy"><div class="eyebrow">Smart gifting</div><h1>Give them the gift of choice.</h1><p>Shop cards for fashion, food, travel, entertainment, shopping and more.</p><a class="cta" href="#categories">Browse categories →</a></div></article>
+      <article class="slide"><div class="slidecopy"><div class="eyebrow">Limited-time deals</div><h1>Big brands. Better deals.</h1><p>Save on everyday favourites and send digital rewards by email or message.</p><a class="cta" href="#brands">See deals →</a></div></article>
+    </div>
+    <button class="arrow prev" onclick="move(-1)">‹</button><button class="arrow next" onclick="move(1)">›</button>
+    <div class="dots" id="dots"><button class="dot active" onclick="go(0)"></button><button class="dot" onclick="go(1)"></button><button class="dot" onclick="go(2)"></button></div>
+  </div>
+</section>
+
+<section class="quick">
+  <div class="quickcard"><div class="icon">%</div><div><b>Exclusive offers</b><span>Save on popular brands</span></div></div>
+  <div class="quickcard"><div class="icon">⚡</div><div><b>Instant delivery</b><span>Digital vouchers in minutes</span></div></div>
+  <div class="quickcard"><div class="icon">✓</div><div><b>Secure checkout</b><span>Multiple payment options</span></div></div>
+  <div class="quickcard"><div class="icon">🎁</div><div><b>Easy gifting</b><span>Send it to someone special</span></div></div>
+</section>
+
+<section class="section" id="categories">
+  <div class="sectionhead"><div><h2>Shop by category</h2><p>Find the right voucher for every need.</p></div><a class="viewall" href="#brands">View all →</a></div>
+  <div class="categories">
+    <a class="cat" href="#brands"><div class="emoji">👕</div><span>Fashion</span></a>
+    <a class="cat" href="#brands"><div class="emoji">🍔</div><span>Food & Dining</span></a>
+    <a class="cat" href="#brands"><div class="emoji">🛒</div><span>Shopping</span></a>
+    <a class="cat" href="#brands"><div class="emoji">📱</div><span>Electronics</span></a>
+    <a class="cat" href="#brands"><div class="emoji">🎬</div><span>Entertainment</span></a>
+    <a class="cat" href="#brands"><div class="emoji">✈️</div><span>Travel</span></a>
+    <a class="cat" href="#brands"><div class="emoji">💆</div><span>Beauty & Wellness</span></a>
+    <a class="cat" href="#brands"><div class="emoji">🏠</div><span>Home & Grocery</span></a>
+  </div>
+</section>
+
+<section class="section" id="brands">
+  <div class="sectionhead"><div><h2>Popular gift cards</h2><p>Hand-picked deals for DigiStore shoppers.</p></div><a class="viewall" href="#">View all →</a></div>
+  <div class="filters"><button class="filter active" onclick="filterCards('all',this)">All</button><button class="filter" onclick="filterCards('fashion',this)">Fashion</button><button class="filter" onclick="filterCards('food',this)">Food</button><button class="filter" onclick="filterCards('shopping',this)">Shopping</button><button class="filter" onclick="filterCards('travel',this)">Travel</button></div>
+  <div class="brands" id="brandGrid">
+    <article class="brand" data-cat="shopping"><div class="brandimg" style="background:linear-gradient(135deg,#1f2937,#111827)">DigiMart</div><div class="brandbody"><h3>DigiMart Gift Card</h3><p>Starting ₹250 · <span class="off">Up to 8% OFF</span></p></div></article>
+    <article class="brand" data-cat="fashion"><div class="brandimg" style="background:linear-gradient(135deg,#ef4444,#be123c)">STYLE+</div><div class="brandbody"><h3>STYLE+ Voucher</h3><p>Starting ₹500 · <span class="off">Up to 12% OFF</span></p></div></article>
+    <article class="brand" data-cat="food"><div class="brandimg" style="background:linear-gradient(135deg,#f59e0b,#ea580c)">BITE</div><div class="brandbody"><h3>Bite Restaurant Card</h3><p>Starting ₹200 · <span class="off">Up to 10% OFF</span></p></div></article>
+    <article class="brand" data-cat="travel"><div class="brandimg" style="background:linear-gradient(135deg,#0891b2,#155e75)">TRAVELGO</div><div class="brandbody"><h3>TravelGo Voucher</h3><p>Starting ₹1,000 · <span class="off">Up to 6% OFF</span></p></div></article>
+    <article class="brand" data-cat="shopping"><div class="brandimg" style="background:linear-gradient(135deg,#7c3aed,#4338ca)">NOVA</div><div class="brandbody"><h3>Nova Shopping Card</h3><p>Starting ₹300 · <span class="off">Up to 9% OFF</span></p></div></article>
+    <article class="brand" data-cat="fashion"><div class="brandimg" style="background:linear-gradient(135deg,#ec4899,#be185d)">URBAN</div><div class="brandbody"><h3>Urban Fashion Card</h3><p>Starting ₹500 · <span class="off">Up to 15% OFF</span></p></div></article>
+    <article class="brand" data-cat="food"><div class="brandimg" style="background:linear-gradient(135deg,#16a34a,#166534)">FRESH</div><div class="brandbody"><h3>Fresh Eats Card</h3><p>Starting ₹250 · <span class="off">Up to 7% OFF</span></p></div></article>
+    <article class="brand" data-cat="travel"><div class="brandimg" style="background:linear-gradient(135deg,#2563eb,#1e3a8a)">FLY</div><div class="brandbody"><h3>FlyAway Voucher</h3><p>Starting ₹2,000 · <span class="off">Up to 5% OFF</span></p></div></article>
+  </div>
+</section>
+
+<section class="deal"><div><h2>Unlock extra savings with DigiStore</h2><p>Get special offers, instant delivery and rewards on selected vouchers.</p></div><a class="cta" href="#brands">Shop now</a></section>
+
+<section class="info">
+  <div class="sectionhead"><div><h2>How DigiStore works</h2><p>Simple, fast and digital from checkout to redemption.</p></div></div>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><h3>Choose a brand</h3><p>Browse categories or search for a gift card you want.</p></div>
+    <div class="step"><div class="num">2</div><h3>Select value</h3><p>Pick the denomination that matches your purchase or gift.</p></div>
+    <div class="step"><div class="num">3</div><h3>Pay securely</h3><p>Complete checkout using your preferred payment method.</p></div>
+    <div class="step"><div class="num">4</div><h3>Receive instantly</h3><p>Your digital voucher is ready to use and share.</p></div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="footergrid">
+    <div><a class="logo" href="/" style="color:#fff">Digi<span>Store</span></a><p>A modern digital gifting marketplace for vouchers, rewards and everyday savings.</p></div>
+    <div><h3>Shop</h3><a href="#categories">Categories</a><a href="#brands">Gift Cards</a><a href="https://digistore.com/loots" target="_blank">Loots</a></div>
+    <div><h3>Help</h3><a href="#">Contact us</a><a href="#">FAQ</a><a href="#">Terms</a><a href="#">Privacy</a></div>
+    <div><h3>Popular</h3><a href="#brands">Fashion</a><a href="#brands">Food</a><a href="#brands">Shopping</a><a href="#brands">Travel</a></div>
+  </div>
+  <div class="copy">© 2026 DigiStore. All rights reserved.</div>
+</footer>
+<a class="chat" href="#" aria-label="Help">?</a>
+
+<script>
+let index=0;
+const slides=document.getElementById('slides'), dots=[...document.querySelectorAll('.dot')];
+function render(){slides.style.transform=`translateX(-${index*100}%)`;dots.forEach((d,i)=>d.classList.toggle('active',i===index))}
+function move(n){index=(index+n+3)%3;render()}
+function go(n){index=n;render()}
+setInterval(()=>move(1),5000);
+function filterCards(cat,btn){document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.brand').forEach(card=>card.style.display=cat==='all'||card.dataset.cat===cat?'block':'none')}
+function doSearch(){const q=document.getElementById('search').value.trim().toLowerCase();if(!q)return;document.getElementById('brands').scrollIntoView({behavior:'smooth'});document.querySelectorAll('.brand').forEach(c=>{c.style.display=c.innerText.toLowerCase().includes(q)?'block':'none'})}
+document.getElementById('search').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch()});
+
+function openLogin(e){
+  e.preventDefault();
+
+  document.getElementById("loginOverlay").style.display = "flex";
+}
+</script>
+</script>
+</body>
+</html>

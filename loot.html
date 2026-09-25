@@ -1,0 +1,1432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Loot — DigiStore</title>
+
+<style>
+:root{
+  --blue:#1557d6;
+  --orange:#ff7a00;
+  --dark:#17151d;
+  --muted:#666;
+  --border:#e9e9ec;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  color:#17151d;
+  background:#fff;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+button,
+input{
+  font:inherit;
+}
+
+/* TOP STRIP */
+
+.top-strip{
+  background:#1557d6;
+  color:#fff;
+  text-align:center;
+  font-size:13px;
+  font-weight:700;
+  padding:9px 15px;
+}
+
+/* HEADER */
+
+.header{
+  background:#fff;
+  border-bottom:1px solid #ececf0;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.container{
+  width:min(1200px,92%);
+  margin:auto;
+}
+
+.header-row{
+  min-height:74px;
+  display:flex;
+  align-items:center;
+  gap:28px;
+}
+
+/* LOGO */
+
+.logo{
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:-1.4px;
+  white-space:nowrap;
+  color:#1557d6;
+}
+
+.logo span{
+  color:#ff7a00;
+}
+
+/* SEARCH */
+
+.search-wrap{
+  flex:1;
+  max-width:550px;
+  position:relative;
+}
+
+.search-wrap input{
+  width:100%;
+  height:44px;
+  border:1px solid #d7d9df;
+  border-radius:9px;
+  padding:0 50px 0 15px;
+  outline:none;
+  transition:.2s;
+}
+
+.search-wrap input:focus{
+  border-color:#1557d6;
+  box-shadow:0 0 0 3px #1557d615;
+}
+
+.search-wrap button{
+  position:absolute;
+  right:4px;
+  top:4px;
+  height:36px;
+  width:40px;
+  border:0;
+  border-radius:7px;
+  background:#f2f4f7;
+  cursor:pointer;
+  font-size:20px;
+}
+
+/* NAV */
+
+nav{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  font-size:14px;
+  font-weight:600;
+  white-space:nowrap;
+}
+
+nav a:hover{
+  color:#1557d6;
+}
+
+nav a:last-child{
+  background:#ff7a00;
+  color:#fff;
+  padding:10px 16px;
+  border-radius:8px;
+  font-weight:800;
+}
+
+/* HERO */
+
+.loot-hero{
+  padding:70px 0 80px;
+  background:
+    radial-gradient(circle at 10% 20%,#fff0f4 0,transparent 35%),
+    radial-gradient(circle at 90% 20%,#eee9ff 0,transparent 35%),
+    linear-gradient(135deg,#fff7f9,#f7f4ff,#fff);
+}
+
+.kicker{
+  display:inline-block;
+  color:#1557d6;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.loot-title{
+  font-size:58px;
+  line-height:1.03;
+  letter-spacing:-2.5px;
+  margin:12px 0;
+}
+
+.loot-title span{
+  background:linear-gradient(90deg,#1557d6,#7c3aed,#ff7a00);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.loot-description{
+  max-width:650px;
+  color:#666;
+  line-height:1.7;
+  font-size:15px;
+}
+
+/* GRID */
+
+.loot-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:40px;
+}
+
+/* CARD */
+
+.loot-card{
+  background:#fff;
+  border:1px solid #e9e9ec;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 12px 30px #00000008;
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.loot-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 18px 40px #00000012;
+}
+
+/* VISUAL */
+
+.loot-visual{
+  height:180px;
+  display:grid;
+  place-items:center;
+  font-size:46px;
+  font-weight:900;
+  letter-spacing:-1px;
+  background:linear-gradient(135deg,#17151d,#5b4670);
+  color:#fff;
+}
+
+.loot-card:nth-child(2) .loot-visual{
+  background:linear-gradient(135deg,#ff4e72,#a342ce);
+}
+
+.loot-card:nth-child(3) .loot-visual{
+  background:linear-gradient(135deg,#d89a3c,#70401e);
+}
+
+.loot-card:nth-child(4) .loot-visual{
+  background:linear-gradient(135deg,#3769e8,#48b9e9);
+}
+
+.loot-card:nth-child(5) .loot-visual{
+  background:linear-gradient(135deg,#12a87c,#126c7b);
+}
+
+.loot-card:nth-child(6) .loot-visual{
+  background:linear-gradient(135deg,#ed6845,#e5a333);
+}
+
+/* BODY */
+
+.loot-body{
+  padding:20px;
+}
+
+.loot-body h3{
+  margin:0 0 8px;
+  font-size:18px;
+}
+
+.loot-body p{
+  margin:0;
+  font-size:13px;
+  color:#777;
+  line-height:1.55;
+  min-height:42px;
+}
+
+/* BUTTON */
+
+.btn{
+  border:0;
+  cursor:pointer;
+  border-radius:9px;
+  padding:12px 16px;
+  font-weight:800;
+}
+
+.btn.primary{
+  width:100%;
+  margin-top:14px;
+  background:#1557d6;
+  color:#fff;
+  transition:.2s;
+}
+
+.btn.primary:hover{
+  background:#1048b5;
+  transform:translateY(-1px);
+}
+
+/* FOOTER */
+
+footer{
+  background:#101828;
+  color:#98a2b3;
+  padding:30px 5%;
+}
+
+.copyright{
+  text-align:center;
+  font-size:12px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+  .header-row{
+    gap:15px;
+  }
+
+  nav{
+    gap:12px;
+  }
+
+  .loot-title{
+    font-size:48px;
+  }
+
+  .loot-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:800px){
+
+  .header-row{
+    flex-wrap:wrap;
+    padding:13px 0;
+  }
+
+  .search-wrap{
+    order:3;
+    flex-basis:100%;
+    max-width:none;
+  }
+
+  nav{
+    margin-left:auto;
+  }
+
+  nav a:nth-child(1),
+  nav a:nth-child(2),
+  nav a:nth-child(3){
+    display:none;
+  }
+
+}
+
+@media(max-width:520px){
+
+  .loot-hero{
+    padding:45px 0 55px;
+  }
+
+  .loot-title{
+    font-size:39px;
+    letter-spacing:-1.5px;
+  }
+
+  .loot-description{
+    font-size:14px;
+  }
+
+  .loot-grid{
+    grid-template-columns:1fr;
+  }
+
+  .loot-visual{
+    height:160px;
+    font-size:40px;
+  }
+
+  nav a:last-child{
+    padding:9px 12px;
+  }
+
+}
+
+/* =========================
+   LOOT POPUPS
+========================= */
+.loot-popup-overlay,
+.eligibility-overlay{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(0,0,0,.62);
+  backdrop-filter:blur(3px);
+}
+
+.loot-popup-overlay.is-open,
+.eligibility-overlay.is-open{
+  display:flex;
+}
+
+.loot-popup,
+.eligibility-popup{
+  position:relative;
+  width:min(390px,100%);
+  padding:34px 30px 30px;
+  background:#fff;
+  border-radius:22px;
+  text-align:center;
+  box-shadow:0 25px 70px rgba(0,0,0,.28);
+  animation:lootPopupIn .22s ease;
+}
+
+.loot-popup-icon,
+.eligibility-icon{
+  width:64px;
+  height:64px;
+  margin:0 auto 18px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  font-size:29px;
+}
+
+.loot-popup-icon{background:#fff4e8;}
+.eligibility-icon{background:#eef4ff;}
+
+.loot-popup h2,
+.eligibility-popup h2{
+  margin:0;
+  color:#101828;
+  font-size:27px;
+  line-height:1.2;
+  letter-spacing:-.6px;
+}
+
+.loot-popup p,
+.eligibility-popup p{
+  margin:10px 0 23px;
+  color:#667085;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.loot-popup-btn,
+.eligibility-link{
+  width:100%;
+  min-height:48px;
+  border-radius:11px;
+  background:#1557d6;
+  color:#fff;
+  font-size:14px;
+  font-weight:800;
+  transition:.2s ease;
+}
+
+.loot-popup-btn{
+  border:0;
+  cursor:pointer;
+}
+
+.eligibility-link{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  box-sizing:border-box;
+  text-decoration:none;
+}
+
+.loot-popup-btn:hover,
+.eligibility-link:hover{
+  background:#1048b5;
+  transform:translateY(-1px);
+}
+
+.eligibility-link span{font-size:17px;}
+
+.loot-popup-close,
+.eligibility-close{
+  position:absolute;
+  top:12px;
+  right:13px;
+  width:34px;
+  height:34px;
+  border:0;
+  border-radius:50%;
+  background:#f2f4f7;
+  color:#344054;
+  font-size:23px;
+  line-height:1;
+  cursor:pointer;
+}
+
+.loot-popup-close:hover,
+.eligibility-close:hover{background:#e4e7ec;}
+
+@keyframes lootPopupIn{
+  from{opacity:0;transform:translateY(15px) scale(.96);}
+  to{opacity:1;transform:translateY(0) scale(1);}
+}
+
+@media(max-width:500px){
+  .loot-popup,
+  .eligibility-popup{padding:30px 22px 24px;}
+  .loot-popup h2,
+  .eligibility-popup h2{font-size:24px;}
+}
+
+</style>
+</head>
+<!-- LOOT EXPIRED POPUP -->
+
+<div class="loot-popup-overlay" id="lootExpiredPopup">
+
+  <div class="loot-popup">
+
+    <button
+      class="loot-popup-close"
+      onclick="closeLootExpired()"
+      aria-label="Close"
+    >
+      ×
+    </button>
+
+    <div class="loot-popup-icon">
+      ⏳
+    </div>
+
+    <h2>Loot Expired</h2>
+
+    <p>
+      This loot has already expired.
+      <br>
+      Stay connected for the next drop.
+    </p>
+
+    <button
+      class="loot-popup-btn"
+      onclick="closeLootExpired()"
+    >
+      Stay Connected
+    </button>
+
+  </div>
+
+</div>
+
+
+<style>
+
+/* DARK / GREY BACKGROUND */
+
+.loot-popup-overlay{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+
+  display:none;
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+
+  background:rgba(0,0,0,.62);
+
+  backdrop-filter:blur(3px);
+
+  animation:lootOverlayIn .2s ease;
+}
+
+
+/* POPUP */
+
+.loot-popup{
+  position:relative;
+
+  width:100%;
+  max-width:390px;
+
+  background:#fff;
+
+  border-radius:22px;
+
+  padding:34px 30px 30px;
+
+  text-align:center;
+
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.28);
+
+  animation:lootPopupIn .25s ease;
+}
+
+
+/* ICON */
+
+.loot-popup-icon{
+  width:64px;
+  height:64px;
+
+  margin:0 auto 18px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:50%;
+
+  background:#fff4e8;
+
+  font-size:29px;
+}
+
+
+/* TITLE */
+
+.loot-popup h2{
+  margin:0;
+
+  font-size:27px;
+
+  letter-spacing:-.6px;
+
+  color:#101828;
+}
+
+
+/* DESCRIPTION */
+
+.loot-popup p{
+  margin:10px 0 23px;
+
+  color:#667085;
+
+  font-size:14px;
+
+  line-height:1.6;
+}
+
+
+/* BUTTON */
+
+.loot-popup-btn{
+  width:100%;
+
+  height:48px;
+
+  border:0;
+
+  border-radius:11px;
+
+  background:#1557d6;
+
+  color:#fff;
+
+  font-size:14px;
+
+  font-weight:800;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.loot-popup-btn:hover{
+  background:#1048b5;
+
+  transform:translateY(-1px);
+}
+
+
+/* CLOSE */
+
+.loot-popup-close{
+  position:absolute;
+
+  top:12px;
+  right:13px;
+
+  width:34px;
+  height:34px;
+
+  border:0;
+  border-radius:50%;
+
+  background:#f2f4f7;
+
+  color:#344054;
+
+  font-size:23px;
+
+  line-height:1;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.loot-popup-close:hover{
+  background:#e4e7ec;
+}
+
+
+/* ANIMATION */
+
+@keyframes lootOverlayIn{
+
+  from{
+    opacity:0;
+  }
+
+  to{
+    opacity:1;
+  }
+
+}
+
+@keyframes lootPopupIn{
+
+  from{
+    opacity:0;
+    transform:translateY(15px) scale(.96);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:500px){
+
+  .loot-popup{
+    max-width:100%;
+    padding:30px 22px 24px;
+  }
+
+  .loot-popup h2{
+    font-size:24px;
+  }
+
+}
+
+</style>
+<!-- SHOPPING LOOT ELIGIBILITY POPUP -->
+
+<div class="eligibility-overlay" id="eligibilityPopup">
+
+  <div class="eligibility-popup">
+
+    <button
+      class="eligibility-close"
+      onclick="closeEligibility()"
+      aria-label="Close"
+    >
+      ×
+    </button>
+
+    <div class="eligibility-icon">
+      🎁
+    </div>
+
+    <h2>Check Your Eligibility</h2>
+
+    <p>
+      Check whether you're eligible to claim
+      this Shopping Loot offer.
+    </p>
+
+    <a
+      href="https://www.google.com/"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="eligibility-link"
+    >
+      Click to Check Eligibility
+      <span>↗</span>
+    </a>
+
+  </div>
+
+</div>
+
+
+<style>
+
+/* BACKGROUND */
+
+.eligibility-overlay{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+
+  display:none;
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+
+  background:rgba(0,0,0,.62);
+
+  backdrop-filter:blur(3px);
+}
+
+
+/* POPUP */
+
+.eligibility-popup{
+  position:relative;
+
+  width:100%;
+  max-width:390px;
+
+  padding:34px 30px 30px;
+
+  background:#fff;
+
+  border-radius:22px;
+
+  text-align:center;
+
+  box-shadow:0 25px 70px rgba(0,0,0,.28);
+
+  animation:eligibilityPopupIn .25s ease;
+}
+
+
+/* ICON */
+
+.eligibility-icon{
+  width:64px;
+  height:64px;
+
+  margin:0 auto 18px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:50%;
+
+  background:#eef4ff;
+
+  font-size:28px;
+}
+
+
+/* TITLE */
+
+.eligibility-popup h2{
+  margin:0;
+
+  color:#101828;
+
+  font-size:26px;
+
+  letter-spacing:-.6px;
+}
+
+
+/* DESCRIPTION */
+
+.eligibility-popup p{
+  margin:10px 0 23px;
+
+  color:#667085;
+
+  font-size:14px;
+
+  line-height:1.6;
+}
+
+
+/* ELIGIBILITY LINK */
+
+.eligibility-link{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:7px;
+
+  width:100%;
+  height:48px;
+
+  box-sizing:border-box;
+
+  border-radius:11px;
+
+  background:#1557d6;
+
+  color:#fff;
+
+  font-size:14px;
+
+  font-weight:800;
+
+  text-decoration:none;
+
+  transition:.2s;
+}
+
+.eligibility-link:hover{
+  background:#1048b5;
+
+  transform:translateY(-1px);
+}
+
+.eligibility-link span{
+  font-size:17px;
+}
+
+
+/* CLOSE */
+
+.eligibility-close{
+  position:absolute;
+
+  top:12px;
+  right:13px;
+
+  width:34px;
+  height:34px;
+
+  border:0;
+  border-radius:50%;
+
+  background:#f2f4f7;
+
+  color:#344054;
+
+  font-size:23px;
+
+  cursor:pointer;
+}
+
+.eligibility-close:hover{
+  background:#e4e7ec;
+}
+
+
+/* ANIMATION */
+
+@keyframes eligibilityPopupIn{
+
+  from{
+    opacity:0;
+    transform:translateY(15px) scale(.96);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:500px){
+
+  .eligibility-popup{
+    padding:30px 22px 24px;
+  }
+
+  .eligibility-popup h2{
+    font-size:24px;
+  }
+
+}
+
+</style>
+
+
+<script>
+
+function grabLoot(lootName){
+
+  if(lootName === "Shopping Loot"){
+
+    document.getElementById("eligibilityPopup").style.display = "flex";
+
+  }
+
+}
+
+
+function closeEligibility(){
+
+  document.getElementById("eligibilityPopup").style.display = "none";
+
+}
+
+
+/* CLICK OUTSIDE TO CLOSE */
+
+document
+  .getElementById("eligibilityPopup")
+  .addEventListener("click", function(e){
+
+    if(e.target === this){
+      closeEligibility();
+    }
+
+  });
+
+
+/* ESC TO CLOSE */
+
+document.addEventListener("keydown", function(e){
+
+  if(e.key === "Escape"){
+    closeEligibility();
+  }
+
+});
+
+</script>
+
+<script>
+
+function showLootExpired(){
+
+  document.getElementById("lootExpiredPopup").style.display = "flex";
+
+}
+
+
+function closeLootExpired(){
+
+  document.getElementById("lootExpiredPopup").style.display = "none";
+
+}
+
+
+/* CLOSE WHEN CLICKING OUTSIDE */
+
+document
+  .getElementById("lootExpiredPopup")
+  .addEventListener("click", function(e){
+
+    if(e.target === this){
+      closeLootExpired();
+    }
+
+  });
+
+
+/* ESC KEY */
+
+document.addEventListener("keydown", function(e){
+
+  if(e.key === "Escape"){
+    closeLootExpired();
+  }
+
+});
+
+</script>
+<body>
+
+<!-- LOOT EXPIRED POPUP -->
+<div class="loot-popup-overlay" id="lootExpiredPopup" aria-hidden="true">
+  <div class="loot-popup" role="dialog" aria-modal="true">
+    <button class="loot-popup-close" type="button" onclick="closeLootExpired()" aria-label="Close">×</button>
+    <div class="loot-popup-icon">⏳</div>
+    <h2>Loot Expired</h2>
+    <p>This loot has already expired.<br>Stay connected for the next drop.</p>
+    <button class="loot-popup-btn" type="button" onclick="closeLootExpired()">Stay Connected</button>
+  </div>
+</div>
+
+<!-- SHOPPING LOOT ELIGIBILITY POPUP -->
+<div class="eligibility-overlay" id="eligibilityPopup" aria-hidden="true">
+  <div class="eligibility-popup" role="dialog" aria-modal="true">
+    <button class="eligibility-close" type="button" onclick="closeEligibility()" aria-label="Close">×</button>
+    <div class="eligibility-icon">🎁</div>
+    <h2>Check Your Eligibility</h2>
+    <p>Check whether you're eligible to claim this Shopping Loot offer.</p>
+    <a class="eligibility-link" href="https://www.google.com/" target="_blank" rel="noopener noreferrer">Click to Check Eligibility <span>↗</span></a>
+  </div>
+</div>
+
+
+<!-- TOP BAR -->
+
+<div class="top-strip">
+  🔥 LOOT · Limited-time deals from DigiStore
+</div>
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+  <div class="container header-row">
+
+    <a class="logo" href="/">
+      Digi<span>Store</span>
+    </a>
+
+    <div class="search-wrap">
+      <input
+        id="lootSearch"
+        type="text"
+        placeholder="Search Loot"
+        onkeyup="searchLoot()"
+      >
+      <button onclick="searchLoot()">⌕</button>
+    </div>
+
+    <nav>
+
+      <a href="/#brands">
+        Offers
+      </a>
+
+      <a href="/#categories">
+        Categories
+      </a>
+
+      <a href="/#brands">
+        Gift Cards
+      </a>
+
+      <a href="loot.html">
+        Loot
+      </a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+<!-- MAIN -->
+
+<main>
+
+<section class="loot-hero">
+
+  <div class="container">
+
+    <span class="kicker">
+      DIGISTORE LOOT
+    </span>
+
+    <h1 class="loot-title">
+      Grab the deal.<br>
+      <span>Before it's gone.</span>
+    </h1>
+
+    <p class="loot-description">
+      Limited-time digital voucher deals and special drops.
+      Discover exclusive DigiStore offers across fashion,
+      shopping, food, travel, beauty and more.
+    </p>
+
+
+    <!-- LOOT GRID -->
+
+    <div class="loot-grid" id="lootGrid">
+
+
+      <!-- LOOT 1 -->
+
+      <article class="loot-card">
+
+        <div class="loot-visual">
+          50% OFF
+        </div>
+
+        <div class="loot-body">
+
+          <h3>
+            Fashion Loot
+          </h3>
+
+          <p>
+            Special voucher drop for selected fashion brands.
+          </p>
+
+ <button class="btn primary" onclick="showLootExpired()">
+  Grab Loot
+</button>
+
+        </div>
+
+      </article>
+
+
+      <!-- LOOT 2 -->
+
+      <article class="loot-card">
+
+        <div class="loot-visual">
+          ₹4,000
+        </div>
+
+        <div class="loot-body">
+
+          <h3>
+            Shopping Loot
+          </h3>
+
+          <p>
+            Limited-value SheIn shopping voucher.
+          </p>
+
+          <button
+            class="btn primary"
+            onclick="showEligibility()"
+          >
+            Grab Loot
+          </button>
+
+        </div>
+
+      </article>
+
+
+      <!-- LOOT 3 -->
+
+      <article class="loot-card">
+
+        <div class="loot-visual">
+          ₹300
+        </div>
+
+        <div class="loot-body">
+
+          <h3>
+            Food Loot
+          </h3>
+
+          <p>
+            Save on selected food and dining vouchers.
+          </p>
+
+ <button class="btn primary" onclick="showLootExpired()">
+  Grab Loot
+</button>
+
+
+        </div>
+
+      </article>
+
+
+      <!-- LOOT 4 -->
+
+      <article class="loot-card">
+
+        <div class="loot-visual">
+          ₹1,000
+        </div>
+
+        <div class="loot-body">
+
+          <h3>
+            Travel Loot
+          </h3>
+
+          <p>
+            Get vouchers for MakeMyTrip And goibibo.
+          </p>
+
+ <button class="btn primary" onclick="showLootExpired()">
+  Grab Loot
+</button>
+
+
+        </div>
+
+      </article>
+
+
+      <!-- LOOT 5 -->
+
+      <article class="loot-card">
+
+        <div class="loot-visual">
+          ₹3,000
+        </div>
+
+        <div class="loot-body">
+
+          <h3>
+            Beauty Loot
+          </h3>
+
+          <p>
+            Extra value on selected beauty brands.
+          </p>
+
+ <button class="btn primary" onclick="showLootExpired()">
+  Grab Loot
+</button>
+
+
+        </div>
+
+      </article>
+
+
+      <!-- LOOT 6 -->
+
+      <article class="loot-card">
+
+        <div class="loot-visual">
+          UNLIMITED
+        </div>
+
+        <div class="loot-body">
+
+          <h3>
+            Bonus Loot
+          </h3>
+
+          <p>
+            Special DigiStore promotional drop.
+          </p>
+
+ <button class="btn primary" onclick="showLootExpired()">
+  Grab Loot
+</button>
+
+        </div>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="copyright">
+    © 2026 DigiStore. All rights reserved.
+  </div>
+
+</footer>
+
+
+<script>
+
+/* LOOT POPUPS */
+function showLootExpired(){
+  document.getElementById("lootExpiredPopup").classList.add("is-open");
+}
+
+function closeLootExpired(){
+  document.getElementById("lootExpiredPopup").classList.remove("is-open");
+}
+
+function showEligibility(){
+  document.getElementById("eligibilityPopup").classList.add("is-open");
+}
+
+function closeEligibility(){
+  document.getElementById("eligibilityPopup").classList.remove("is-open");
+}
+
+/* SEARCH */
+
+function searchLoot(){
+
+  const query =
+    document
+      .getElementById("lootSearch")
+      .value
+      .toLowerCase()
+      .trim();
+
+  const cards =
+    document.querySelectorAll(".loot-card");
+
+  cards.forEach(card => {
+
+    const text =
+      card.innerText.toLowerCase();
+
+    if(
+      query === "" ||
+      text.includes(query)
+    ){
+
+      card.style.display = "";
+
+    }else{
+
+      card.style.display = "none";
+
+    }
+
+  });
+
+}
+
+
+document.getElementById("lootExpiredPopup").addEventListener("click", function(e){
+  if(e.target === this) closeLootExpired();
+});
+
+document.getElementById("eligibilityPopup").addEventListener("click", function(e){
+  if(e.target === this) closeEligibility();
+});
+
+document.addEventListener("keydown", function(e){
+  if(e.key === "Escape"){
+    closeLootExpired();
+    closeEligibility();
+  }
+});
+
+</script>
+
+</body>
+</html>
